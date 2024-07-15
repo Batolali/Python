@@ -1,0 +1,82 @@
+import itertools
+
+a = int(input("Factor A: "))
+b = int(input("Factor B: "))
+
+if a > b:
+  a, b = b, a
+
+x_list = []
+a_list = []
+b_list = []
+
+N = 1
+while True:
+  if N <= a:
+    a_list.append(N)
+    N *= 2
+else:
+  break
+
+all_kom = []
+for r in range(len(a_list) + 1):
+    kom_obj = itertools.combinations(a_list, r)
+    kom_list = list(kom_obj)
+    all_kom += kom_list
+
+
+for kom in all_kom:
+    if sum(kom) == a:
+        best_kom = kom
+
+index = []
+for num in best_kom:
+    index.append(a_list.index(num))
+
+
+temp_b = b
+for M in range(0, len(a_list)):
+    x_list.append(" ")
+    b_list.append(temp_b)
+    temp_b *= 2
+
+for N in range(0, len(a_list)):
+  if N in index:
+      x_list[N] = "X"
+
+
+print("=============================")
+
+
+for N in range(0, len(a_list)):
+    if len(str(a_list[N])) == 1:
+        Z = " "
+    else:
+        Z= ""
+
+
+    print(x_list[N]," ", a_list[N], Z, b_list[N])
+
+print("===========================")
+
+for num in best_kom:
+  if best_kom.index(num) != len(best_kom) -1:
+      print(num,"+ ", end="")
+else:
+
+  print(num,"=", sum(best_kom))
+
+best_b = []
+for N in range(0, len(b_list)):
+    if x_list[N] == "X":
+        best_b.append(b_list[N])
+
+
+for num in best_b:
+    if best_b.index(num) != len(best_b) -1:
+        print(num,"+ ", end="")
+    else:
+        print(num,"=", sum(best_b))
+
+print("=============================")
+print(a,"*", b,"=", sum(best_b))
