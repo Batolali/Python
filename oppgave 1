@@ -1,0 +1,50 @@
+import random
+
+words = ["ettkjøleskap","tannbørste","sjiraff","etlekeplass","ettland","tilgje
+correct = 0
+
+while True:
+  word = random.choice(words)
+  current_s = "*" * len(word)
+  X = 1
+  Y = []
+
+while X <= 6:
+  print("ordet er", current_s)
+  Z = input(f"Bokstav eller løsning ({X}/6): ")
+  X += 1
+
+  if len(Z) == 1:
+    if Z in word:
+    Y.append(Z)
+    letters = list(word)
+    current_s = ""
+      for letter in letters:
+          if letter in Y:
+              current_s += letter
+          else:
+              current_s += "*"
+    else:
+      print("Ingen slike bokstaver i ordet")
+  else:
+      if Z == word:
+          correct += 1
+          print("riktige!")
+          break
+    else:
+        print("feill!")
+
+    if current_s == word:
+      correct += 1
+      print("riktige!")
+      break
+
+again = input("spille igjen? [j/n]: ")
+if again == "n":
+  break
+
+
+if correct != 1:
+  print(f"Bookeren gjettet {correct} ord!")
+else:
+  print(f"Bookeren gjettet 1 ord!")
