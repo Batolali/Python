@@ -1,0 +1,46 @@
+import pandas as pd
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("airport_codes.csv")
+inf = df["D"]
+types = []
+a_codes = []
+y = []
+
+
+for r in inf:
+  r = r.split(",")
+  types.append(r[1])
+  a_codes.append(r[6])
+  y.append([r[1][1:], r[12][1:1]])
+
+
+x = []
+y = []
+s = []
+l = []
+
+
+for i in range(0, len(types)):
+  try:
+      x_chec = False
+      x.append(float(y[i][1]))
+      x_chec = True
+      y.append(float(y[i][0:1]))
+      l.append(a_codes[i])
+
+      if types[i] == "medium_airport":
+          s.append(30)
+      else:
+          s.append(100)
+plt.figure(figsize=(30,10))
+plt.scatter(x, y, s=s)
+for i in range(len(x)):
+    plt.text(x[i], y[i], l[i])
+
+
+plt.xlabel("Longitude")
+plt.ylabel("Latitude")
+plt.title("Airports")
